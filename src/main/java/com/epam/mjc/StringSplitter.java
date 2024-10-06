@@ -2,6 +2,8 @@ package com.epam.mjc;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class StringSplitter {
 
@@ -14,7 +16,9 @@ public class StringSplitter {
      */
     public List<String> splitByDelimiters(String source, Collection<String> delimiters) {
 
-        String regex = String.join("|", delimiters);
+        String regex = delimiters.stream()
+                .map(Pattern::quote)
+                .collect(Collectors.joining("|"));
 
         return List.of(source.split(regex));
     }
