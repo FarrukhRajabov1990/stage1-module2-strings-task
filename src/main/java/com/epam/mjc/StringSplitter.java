@@ -13,6 +13,9 @@ public class StringSplitter {
      * @return List of substrings
      */
     public List<String> splitByDelimiters(String source, Collection<String> delimiters) {
-        throw new UnsupportedOperationException("You should implement this method.");
+
+        String regex = String.join("|", delimiters);
+
+        return List.of(source.split(regex));
     }
 }

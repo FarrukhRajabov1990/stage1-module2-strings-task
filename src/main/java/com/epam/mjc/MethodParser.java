@@ -1,5 +1,9 @@
 package com.epam.mjc;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class MethodParser {
 
     /**
@@ -20,6 +24,22 @@ public class MethodParser {
      * @return {@link MethodSignature} object filled with parsed values from source string
      */
     public MethodSignature parseFunction(String signatureString) {
-        throw new UnsupportedOperationException("You should implement this method.");
+
+        StringSplitter splitter = new StringSplitter();
+        List<String> splitString = splitter.splitByDelimiters(signatureString, new ArrayList<>(Arrays.asList(" ", "(", ")", ",")));
+
+        boolean flag = splitString.get(0).equals("public") || splitString.get(0).equals("private") || splitString.get(0).equals("protected");
+
+        MethodSignature signature;
+        if (flag) {
+            signature = new MethodSignature(splitString.get(2));
+            signature.setAccessModifier(splitString.get(0));
+            signature.setReturnType(splitString.get(1));
+        } else {
+            signature = new MethodSignature(splitString.get(1));
+            signature.setReturnType(splitString.get(0));
+        }
+
+        return signature;
     }
 }
