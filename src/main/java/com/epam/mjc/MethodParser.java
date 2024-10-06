@@ -38,6 +38,7 @@ public class MethodParser {
         } else {
             signature = new MethodSignature(splitString.get(1));
             signature.setReturnType(splitString.get(0));
+            signature.setAccessModifier(null);
         }
 
         return signature;
